@@ -25,7 +25,7 @@ class AddUser extends Component {
 		const {password,hashFunc,performance} = this.state;
 		if (hashFunc === 'MD5'){
 			let hashPassword=HashFucntions.md5(password);
-			let funcPerformance = this.HashFucntions.testLocalPerformance(start,hrstart);
+			let funcPerformance = HashFucntions.testLocalPerformance(start,hrstart);
 			this.setState({password: hashPassword, performance: funcPerformance},()=> {
 				console.log('Encrypted Password',hashPassword)
 				console.log('Time to run in ms:', funcPerformance)
@@ -34,15 +34,15 @@ class AddUser extends Component {
 		}
 		else if (hashFunc === 'SHA-512'){
 			let hashPassword=HashFucntions.saltHashPassword(password);
-			let funcPerformance = this.HashFucntions.testLocalPerformance(start,hrstart);
+			let funcPerformance = HashFucntions.testLocalPerformance(start,hrstart);
 			this.setState({password: hashPassword, performance: funcPerformance},()=> {
 				console.log('Encrypted Password',hashPassword)
 				this.addUser(hashPassword,funcPerformance);
 			})
 		}
 		else if (hashFunc === 'BCrypt'){
-			let hashPassword=HashFucntions.bcryptExecute(password);
-			let funcPerformance = this.HashFucntions.testLocalPerformance(start,hrstart);
+			let hashPassword=HashFucntions.bcryptExecute(password,10);
+			let funcPerformance = HashFucntions.testLocalPerformance(start,hrstart);
 			this.setState({password: hashPassword, performance: funcPerformance},()=>{
 				console.log('Encrypted Password',hashPassword)
 				this.addUser(hashPassword,funcPerformance);

@@ -7,11 +7,9 @@ const plaintext = 'testPassword';
 const plaintext2 = 'testPassword2';
 
 function bcryptExecute(plaintext,salt) {
-    bcrypt.hash(plaintext, salt).then(function(hash) {
-        testPerformance();
-        return hash;
+    var hash = bcrypt.hashSync(plaintext,salt);
+    return hash;
     } 
-    )}
 
 /**
  * Calculates the MD5 hash of a string.
@@ -21,7 +19,6 @@ function bcryptExecute(plaintext,salt) {
  */
 function md5(string) {
     var hashMd5 = crypto.createHash('md5').update(string).digest('hex');
-    //testPerformance();
     return hashMd5;
 }
 
@@ -55,11 +52,11 @@ function sha512(password, salt){
 function saltHashPassword(userpassword) {
     var salt = genRandomString(16); /** Gives us salt of length 16 */
     var passwordData = sha512(userpassword, salt);
-    testPerformance();
 	console.log('Using SHA-512 to hash Plaintext...')
     console.log('UserPassword = '+userpassword);
     console.log('Passwordhash = '+passwordData.passwordHash);
-	console.log('nSalt = '+passwordData.salt);
+    console.log('nSalt = '+passwordData.salt);
+    return passwordData.passwordHash;
 }
 
 /* Test Performance of a given process */
